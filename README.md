@@ -1,6 +1,8 @@
 ## Big Transfer (BiT): General Visual Representation Learning
 *by Alexander Kolesnikov, Lucas Beyer, Xiaohua Zhai, Joan Puigcerver, Jessica Yung, Sylvain Gelly, Neil Houlsby*
 
+**Update 08/02/2021:** We also release ALL BiT-M models fine-tuned on ALL 19 VTAB-1k datasets, see below.
+
 ## Introduction
 
 In this repository we release multiple models from the [Big Transfer (BiT): General Visual Representation Learning](https://arxiv.org/abs/1912.11370) paper that were pre-trained on the [ILSVRC-2012](http://www.image-net.org/challenges/LSVRC/2012/) and [ImageNet-21k](http://www.image-net.org/) datasets.
@@ -62,6 +64,25 @@ In the above path to the model file, simply replace `R50x1` by your architecture
 
 We further investigated more architectures after the paper's publication and found R152x2 to have a nice trade-off between speed and accuracy, hence we also include this in the release and provide a few numbers below.
 
+
+### BiT-M models fine-tuned on the 19 VTAB-1k tasks
+
+We also release the fine-tuned models for each of the 19 tasks included in the VTAB-1k benchmark. We ran each model three times and release each of these runs. This means we release a total of 5x19x3=285 models, and hope these can be useful in further analysis of transfer learning.
+
+The files can be downloaded via the following pattern:
+
+```
+wget https://storage.googleapis.com/bit_models/vtab/BiT-M-{R50x1,R101x1,R50x3,R101x3,R152x4}-run{0,1,2}-{caltech101,diabetic_retinopathy,dtd,oxford_flowers102,oxford_iiit_pet,resisc45,sun397,cifar100,eurosat,patch_camelyon,smallnorb-elevation,svhn,dsprites-orientation,smallnorb-azimuth,clevr-distance,clevr-count,dmlab,kitti-distance,dsprites-xpos}.npz
+```
+
+We did not convert these models to TF2 (hence there is no corresponding `.h5` file), however, we also uploaded [TFHub](http://tfhub.dev) models which can be used in TF1 and TF2. An example sequence of commands for downloading one such model is:
+
+```
+mkdir BiT-M-R50x1-run0-caltech101.tfhub && cd BiT-M-R50x1-run0-caltech101.tfhub
+wget https://storage.googleapis.com/bit_models/vtab/BiT-M-R50x1-run0-caltech101.tfhub/{saved_model.pb,tfhub_module.pb}
+mkdir variables && cd variables
+wget https://storage.googleapis.com/bit_models/vtab/BiT-M-R50x1-run0-caltech101.tfhub/variables/variables.{data@1,index}
+```
 
 ### Hyper-parameters
 
@@ -153,6 +174,15 @@ Full results achieved that way in some test runs were:
 |   1    | 18.36 | 24.5   | 25.55  |
 |   5    | 50.64 | 64.5   | 64.18  |
 |  full  | 80.68 | 85.15  | WIP    |
+
+### VTAB-1k results
+
+These are re-runs and not the exact paper models. The expected VTAB scores for two of the models are:
+
+| Model         | Full  | Natural | Structured | Specialized |
+| :---          | :---: |  :---:  |   :---:    |    :---:    |
+| BiT-M-R152x4  | 73.51 |  80.77  |    61.08   |    85.67    |
+| BiT-M-R101x3  | 72.65 |  80.29  |    59.40   |    85.75    |
 
 ## Out of context dataset
 
