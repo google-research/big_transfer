@@ -283,5 +283,6 @@ if __name__ == "__main__":
                       help="Path to the ImageNet data folder, preprocessed for torchvision.")
   parser.add_argument("--workers", type=int, default=8,
                       help="Number of background threads used to load data.")
-  parser.add_argument("--no-save", dest="save", action="store_false")
+  parser.add_argument("--save", dest="save", action="store_true")
   main(parser.parse_args())
+
