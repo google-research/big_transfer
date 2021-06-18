@@ -1,6 +1,9 @@
 ## Big Transfer (BiT): General Visual Representation Learning
 *by Alexander Kolesnikov, Lucas Beyer, Xiaohua Zhai, Joan Puigcerver, Jessica Yung, Sylvain Gelly, Neil Houlsby*
 
+
+**Update 18/06/2021:** We release new high performing BiT-R50x1 models, which were distilled from BiT-M-R152x2, see [this section](#distilled-models). More details in our [paper "Knowledge distillation: A good teacher is patient and consistent"](https://arxiv.org/abs/2106.05237).
+
 **Update 08/02/2021:** We also release ALL BiT-M models fine-tuned on ALL 19 VTAB-1k datasets, see below.
 
 ## Introduction
@@ -196,3 +199,16 @@ wget https://storage.googleapis.com/bit-out-of-context-dataset/bit_out_of_contex
 ```
 
 Images from each of the 21 classes are kept in a directory with the name of the class.
+
+## Distilled models
+
+We release top-performing compressed BiT models from our [paper "Knowledge distillation: A good teacher is patient and consistent"](https://arxiv.org/abs/2106.05237) on knoweldge distillation.
+In particular, we distill the BiT-M-R152x2 model (which was pre-trained on ImageNet-21k) to BiT-R50x1 models.
+As a result, we obtain compact models with very competitive performance.
+
+| Model      | Download link | Resolution  | ImageNet top-1 acc. (paper) | 
+| :---       | :---:         | :---:       |  :---:                      |
+| BiT-R50x1  | [link](https://storage.googleapis.com/bit_models/distill/R50x1_224.npz)      | 224 |  82.8 |
+| BiT-R50x1  | [link](https://storage.googleapis.com/bit_models/distill/R50x1_160.npz)      | 160 |  80.5 |
+
+For reproducibility, we also release weights of two BiT-M-R152x2 teacher models: pretrained at [resolution 224](https://storage.googleapis.com/bit_models/distill/R152x2_T_224.npz) and [resolution 384](https://storage.googleapis.com/bit_models/distill/R152x2_T_384.npz). See the paper for details on how these teachers were used.
