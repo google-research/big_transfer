@@ -212,3 +212,8 @@ As a result, we obtain compact models with very competitive performance.
 | BiT-R50x1  | [link](https://storage.googleapis.com/bit_models/distill/R50x1_160.npz)      | 160 |  80.5 |
 
 For reproducibility, we also release weights of two BiT-M-R152x2 teacher models: pretrained at [resolution 224](https://storage.googleapis.com/bit_models/distill/R152x2_T_224.npz) and [resolution 384](https://storage.googleapis.com/bit_models/distill/R152x2_T_384.npz). See the paper for details on how these teachers were used.
+
+### Distillation code
+
+We have no concrete plans for publishing the distillation code, as the recipe is simple and we imagine most people would integrate it in their existing training code.
+However, [Sayak Paul](https://sayak.dev/) has independently [re-implemented the distillation setup in TensorFlow](https://github.com/sayakpaul/FunMatch-Distillation) and nearly reproduced our results in several settings.
