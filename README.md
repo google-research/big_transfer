@@ -43,7 +43,7 @@ Then, you can run fine-tuning of the downloaded model on your dataset of interes
 ```
 python3 -m bit_{pytorch|jax|tf2}.train --name cifar10_`date +%F_%H%M%S` --model BiT-M-R50x1 --logdir /tmp/bit_logs --dataset cifar10
 ```
-Currently. all frameworks will automatically download CIFAR-10 and CIFAR-100 datasets. Other public or custom datasets can be easily integrated: in TF2 and JAX we rely on the extensible [tensorflow datasets library](https://github.com/tensorflow/datasets/). In PyTorch, we use [torchvision’s data input pipeline](https://pytorch.org/docs/stable/torchvision/index.html).
+Currently. all frameworks will automatically download [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html) and [CIFAR-100](https://www.cs.toronto.edu/~kriz/cifar.html) datasets. Other public or custom datasets can be easily integrated: in TF2 and JAX we rely on the extensible [tensorflow datasets library](https://github.com/tensorflow/datasets/). In PyTorch, we use [torchvision’s data input pipeline](https://pytorch.org/docs/stable/torchvision/index.html).
 
 Note that our code uses all available GPUs for fine-tuning.
 
@@ -89,12 +89,12 @@ wget https://storage.googleapis.com/bit_models/vtab/BiT-M-R50x1-run0-caltech101.
 
 ### Hyper-parameters
 
-For reproducibility, our training script uses hyper-parameters (BiT-HyperRule) that were used in the original paper.
+For reproducibility, our training script uses hyper-parameters ([BiT-HyperRule](bit_hyperrule.py)) that were used in the original paper.
 Note, however, that BiT models were trained and finetuned using Cloud TPU hardware, so for a typical GPU setup our default hyper-parameters could require too much memory or result in a very slow progress.
 Moreover, BiT-HyperRule is designed to generalize across many datasets, so it is typically possible to devise more efficient application-specific hyper-parameters.
 Thus, we encourage the user to try more light-weight settings, as they require much less resources and often result in a similar accuracy.
 
-For example, we tested our code using a 8xV100 GPU machine on the CIFAR-10 and CIFAR-100 datasets, while reducing batch size from 512 to 128 and learning rate from 0.003 to 0.001.
+For example, we tested our code using a 8xV100 GPU machine on the [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html) and [CIFAR-100](https://www.cs.toronto.edu/~kriz/cifar.html) datasets, while reducing batch size from 512 to 128 and learning rate from 0.003 to 0.001.
 This setup resulted in nearly identical performance (see [Expected results](#expected-results) below) in comparison to BiT-HyperRule, despite being less computationally demanding.
 
 Below, we provide more suggestions on how to optimize our paper's setup.
@@ -118,7 +118,7 @@ We verified that when using the BiT-HyperRule, the code in this repository repro
 
 ### CIFAR results (few-shot and full)
 
-For these common benchmarks, the aforementioned changes to the BiT-HyperRule (`--batch 128 --base_lr 0.001`) lead to the following, very similar results.
+For these common benchmarks, the aforementioned changes to the [BiT-HyperRule](bit_hyperrule.py) (`--batch 128 --base_lr 0.001`) lead to the following, very similar results.
 The table shows the min←**median**→max result of at least five runs.
 **NOTE**: This is not a comparison of frameworks, just evidence that all code-bases can be trusted to reproduce results.
 
