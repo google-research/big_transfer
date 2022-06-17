@@ -167,9 +167,10 @@ def main(args):
 
   train_set, valid_set, train_loader, valid_loader = mktrainval(args, logger)
 
-  logger.info(f"Loading model from {args.model}.npz")
+  model_path = pjoin(args.bit_pretrained_dir, f"{args.model}.npz")
+  logger.info(f"Loading model from {model_path}")
   model = models.KNOWN_MODELS[args.model](head_size=len(valid_set.classes), zero_head=True)
-  model.load_from(np.load(f"{args.model}.npz"))
+  model.load_from(np.load(model_path))
 
   logger.info("Moving model onto all GPUs")
   model = torch.nn.DataParallel(model)
