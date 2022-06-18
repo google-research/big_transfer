@@ -63,11 +63,11 @@ def mktrainval(args, logger):
   ])
 
   if args.dataset == "cifar10":
-    train_set = tv.datasets.CIFAR10(args.datadir, transform=train_tx, train=True, download=True)
-    valid_set = tv.datasets.CIFAR10(args.datadir, transform=val_tx, train=False, download=True)
+    train_set = tv.datasets.CIFAR10(args.datadir, transform=train_tx, train=True, download=False)
+    valid_set = tv.datasets.CIFAR10(args.datadir, transform=val_tx, train=False, download=False)
   elif args.dataset == "cifar100":
-    train_set = tv.datasets.CIFAR100(args.datadir, transform=train_tx, train=True, download=True)
-    valid_set = tv.datasets.CIFAR100(args.datadir, transform=val_tx, train=False, download=True)
+    train_set = tv.datasets.CIFAR100(args.datadir, transform=train_tx, train=True, download=False)
+    valid_set = tv.datasets.CIFAR100(args.datadir, transform=val_tx, train=False, download=False)
   elif args.dataset == "imagenet2012":
     train_set = tv.datasets.ImageFolder(pjoin(args.datadir, "train"), train_tx)
     valid_set = tv.datasets.ImageFolder(pjoin(args.datadir, "val"), val_tx)
