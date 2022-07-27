@@ -156,6 +156,7 @@ def mixup_criterion(criterion, pred, y_a, y_b, l):
 
 
 def main(args):
+  expname = f"{args.model}-b{args.batch}-s{args.batch_split}-blr{args.base_lr}"
   logger = bit_common.setup_logger(args)
 
   # Lets cuDNN benchmark conv implementations and choose the fastest.
@@ -264,16 +265,24 @@ def main(args):
         if args.eval_every and step % args.eval_every == 0:
           run_eval(model, valid_loader, device, chrono, logger, step)
           if args.save:
+            checkpointname = f"{expname}-clr{lr}-{step}"
+            checkpointpath = pjoin(args.logdir, args.name, f"{checkpointname}.pth.tar")
             torch.save({
                 "step": step,
                 "model": model.state_dict(),
                 "optim" : optim.state_dict(),
-            }, savename)
+            }, checkpointpath)
 
       end = time.time()
 
     # Final eval at end of training.
     run_eval(model, valid_loader, device, chrono, logger, step='end')
+    if args.save:
+      torch.save({
+          "step": step,
+          "model": model.state_dict(),
+          "optim" : optim.state_dict(),
+      }, savename)
 
   logger.info(f"Timings:\n{chrono}")
 
