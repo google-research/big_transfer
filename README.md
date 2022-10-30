@@ -43,7 +43,7 @@ Then, you can run fine-tuning of the downloaded model on your dataset of interes
 ```
 python3 -m bit_{pytorch|jax|tf2}.train --name cifar10_`date +%F_%H%M%S` --model BiT-M-R50x1 --logdir /tmp/bit_logs --dataset cifar10
 ```
-Currently. all frameworks will automatically download CIFAR-10 and CIFAR-100 datasets. Other public or custom datasets can be easily integrated: in TF2 and JAX we rely on the extensible [tensorflow datasets library](https://github.com/tensorflow/datasets/). In PyTorch, we use [torchvision’s data input pipeline](https://pytorch.org/docs/stable/torchvision/index.html).
+Currently. all frameworks will automatically download CIFAR-10 and CIFAR-100 datasets. Other public or custom datasets can be easily integrated: in TF2 and JAX we rely on the extensible [tensorflow datasets library](https://github.com/tensorflow/datasets/). In PyTorch, we use [torchvision’s data input pipeline](https://pytorch.org/vision/stable/index.html).
 
 Note that our code uses all available GPUs for fine-tuning.
 
