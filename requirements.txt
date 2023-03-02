@@ -1,3 +1,4 @@
+anylearn==0.17.0a1
 torch>=1.1.0
 torchvision
 numpy

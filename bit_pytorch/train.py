@@ -19,6 +19,7 @@
 from os.path import join as pjoin  # pylint: disable=g-importing-member
 import time
 
+import anylearn
 import numpy as np
 import torch
 import torchvision as tv
@@ -29,6 +30,9 @@ import bit_pytorch.models as models
 
 import bit_common
 import bit_hyperrule
+
+
+anylearn.init_sdk('http://10.101.67.7:30080', 'yhuang', 'Anylearn2021!')
 
 
 def topk(output, target, ks=(1,)):
@@ -66,8 +70,10 @@ def mktrainval(args, logger):
     train_set = tv.datasets.CIFAR10(args.datadir, transform=train_tx, train=True, download=False)
     valid_set = tv.datasets.CIFAR10(args.datadir, transform=val_tx, train=False, download=False)
   elif args.dataset == "cifar100":
-    train_set = tv.datasets.CIFAR100(args.datadir, transform=train_tx, train=True, download=False)
-    valid_set = tv.datasets.CIFAR100(args.datadir, transform=val_tx, train=False, download=False)
+    dataset_artifact = anylearn.get_dataset("yhuang/CIFAR-100")
+    dataset_path = dataset_artifact.download()
+    train_set = tv.datasets.CIFAR100(dataset_path, transform=train_tx, train=True, download=False)
+    valid_set = tv.datasets.CIFAR100(dataset_path, transform=val_tx, train=False, download=False)
   elif args.dataset == "imagenet2012":
     train_set = tv.datasets.ImageFolder(pjoin(args.datadir, "train"), train_tx)
     valid_set = tv.datasets.ImageFolder(pjoin(args.datadir, "val"), val_tx)
@@ -168,7 +174,9 @@ def main(args):
 
   train_set, valid_set, train_loader, valid_loader = mktrainval(args, logger)
 
-  model_path = pjoin(args.bit_pretrained_dir, f"{args.model}.npz")
+  model_artifact = anylearn.get_model("yhuang/BiT-pretrained")
+  model_dir_path = model_artifact.download()
+  model_path = pjoin(model_dir_path, f"{args.model}.npz")
   logger.info(f"Loading model from {model_path}")
   model = models.KNOWN_MODELS[args.model](head_size=len(valid_set.classes), zero_head=True)
   model.load_from(np.load(model_path))
