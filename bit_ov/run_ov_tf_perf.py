@@ -23,6 +23,11 @@ python run_ov_tf_perf.py \
 -t 10
 """
 
+"""
+Refer below for more details:
+https://medium.com/openvino-toolkit/accelerate-big-transfer-bit-model-inference-with-intel-openvino-faaefaee8aec 
+"""
+
 import os, sys
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 import tensorflow as tf
